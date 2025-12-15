@@ -11,9 +11,15 @@ require_once __DIR__ . '/../config/conexion_db.php';
 try {
     $db = new Conexion_db();
     $conn = $db->conectar();
-    echo "¡Backend funcionando correctamente!";
+    echo json_encode([
+        "success" => true,
+        "categorias" => $data
+    ]);
 } catch (PDOException $e) {
-    echo "Error de conexión: " . $e->getMessage();
+    echo json_encode([
+        "success" => false,
+        "error" => $e->getMessage()
+    ]);
 }
 
 ?>
