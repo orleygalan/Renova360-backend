@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "aws/aws-sdk-php": "^3.364",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
