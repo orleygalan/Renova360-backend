@@ -1,7 +1,16 @@
 FROM php:8.4-apache
 
-# Instalar extensiones necesarias
-RUN docker-php-ext-install pdo pdo_mysql
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    zip \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Habilitar mod_rewrite
 RUN a2enmod rewrite
@@ -9,8 +18,10 @@ RUN a2enmod rewrite
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copiar el proyecto
+# Directorio de trabajo
 WORKDIR /var/www/html
+
+# Copiar proyecto
 COPY . .
 
 # Instalar dependencias PHP
