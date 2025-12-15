@@ -1,20 +1,9 @@
 <?php
 
-// ini_set('display_errors', 0);
-// ini_set('display_startup_errors', 0);
-// error_reporting(E_ALL);
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Content-Type: application/json; charset=UTF-8");
-
-// Manejar preflight (IMPORTANTE)
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
-
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL);
+// require './cros.php';
 require '../controllers/nicho_controlador.php';
 // require '../api/nichos_api.php';
 
