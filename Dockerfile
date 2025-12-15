@@ -1,25 +1,22 @@
-FROM php:8.4-apache
+FROM php:8.4-cli
 
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
-    zip \
+    git \
     unzip \
+    zip \
     libzip-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql zip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Habilitar mod_rewrite
-RUN a2enmod rewrite
+    libssl-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Directorio de trabajo
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Copiar proyecto
 COPY . .
@@ -27,10 +24,8 @@ COPY . .
 # Instalar dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Apuntar Apache a /public
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf
+# Exponer puerto Railway
+EXPOSE 8080
 
-EXPOSE 80
+# Arrancar servidor PHP
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
