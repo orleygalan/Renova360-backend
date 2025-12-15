@@ -1,5 +1,5 @@
 <?php
-require './cros.php';
+require '../cros.php';
 require '../controllers/comentario_producto_controlador.php';
 
 

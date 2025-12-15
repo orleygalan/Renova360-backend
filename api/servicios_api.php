@@ -1,6 +1,6 @@
 <?php
 
-require './cros.php';
+require '../cros.php';
 require_once '../controllers/servicio_controlador.php';
 
 $servicio_controlador = new Servicio_controlador();
