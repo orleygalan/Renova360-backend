@@ -1,6 +1,6 @@
 <?php
 
-// require './cros.php';
+require './cros.php';
 require '../controllers/pedido_comprar_controlador.php';
 
 $pedido_controlador = new Pedido_controlador();

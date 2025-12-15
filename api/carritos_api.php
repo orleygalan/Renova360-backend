@@ -1,6 +1,6 @@
 <?php
 
-// require './cros.php';
+require './cros.php';
 require '../controllers/carrito_controlador.php';
 
 $carrito_controlador = new Carrito_controlador();

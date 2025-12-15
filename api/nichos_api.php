@@ -3,7 +3,7 @@
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 error_reporting(E_ALL);
-// require './cros.php';
+require './cros.php';
 require '../controllers/nicho_controlador.php';
 // require '../api/nichos_api.php';
 

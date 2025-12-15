@@ -1,5 +1,5 @@
 <?php
-// require './cros.php';
+require './cros.php';
 require_once '../controllers/producto_controlador.php';
 
 $producto_controlador = new Producto_controlador();
