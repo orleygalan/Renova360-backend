@@ -44,12 +44,13 @@ class Conexion_db
 
     public function __construct()
     {
-        $this->host = $_ENV['MYSQLHOST'];
-        $this->usuario = $_ENV['MYSQLUSER'];
-        $this->pass = $_ENV['MYSQLPASSWORD'];
-        $this->db = $_ENV['MYSQLDATABASE'];
-        $this->port = $_ENV['MYSQLPORT'];
+        $this->host = getenv('MYSQLHOST');
+        $this->usuario = getenv('MYSQLUSER');
+        $this->pass = getenv('MYSQLPASSWORD');
+        $this->db = getenv('MYSQLDATABASE');
+        $this->port = getenv('MYSQLPORT');
     }
+
 
     public function conectar()
     {
