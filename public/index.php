@@ -10,14 +10,14 @@ try {
     $stmt = $conn->query("SELECT DATABASE() AS db");
     $data = $stmt->fetch();
 
-    // echo json_encode([
-    //     "success" => true,
-    //     "data" => $data
-    // ]);
+    echo json_encode([
+        "success" => true,
+        "data" => $data
+    ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    // echo json_encode([
-    //     "success" => false,
-    //     "error" => $e->getMessage()
-    // ]);
+    echo json_encode([
+        "success" => false,
+        "error" => $e->getMessage()
+    ]);
 }
