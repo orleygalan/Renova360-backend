@@ -54,26 +54,22 @@ class Conexion_db
     public function conectar()
     {
         try {
-            $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->db};charset=utf8mb4";
+        $pdo = new PDO(
+            "mysql:host=" . getenv('MYSQLHOST') .
+            ";port=" . getenv('MYSQLPORT') .
+            ";dbname=" . getenv('MYSQLDATABASE') .
+            ";charset=utf8mb4",
+            getenv('MYSQLUSER'),
+            getenv('MYSQLPASSWORD'),
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]
+        );
 
-            return new PDO(
-                $dsn,
-                $this->usuario,
-                $this->pass,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                ]
-            );
-
-        } catch (PDOException $e) {
-            http_response_code(500);
-            echo json_encode([
-                "success" => false,
-                "error" => "Error de conexión a la base de datos",
-                "detalle" => $e->getMessage() // ⚠️ solo para desarrollo
-            ]);
-            exit;
-        }
+        return $pdo; 
+    } catch (PDOException $e) {
+        throw $e;
+    }
     }
 }
