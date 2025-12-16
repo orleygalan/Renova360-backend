@@ -1,5 +1,4 @@
 <?php
-
 require '../cros.php';
 require '../controllers/carrito_controlador.php';
 

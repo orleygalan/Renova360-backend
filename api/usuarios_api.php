@@ -1,8 +1,4 @@
 <?php
-
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-
 require '../cros.php';
 require '../controllers/usuario_controlador.php';
 // require '../api/usuarios_api.php';
