@@ -7,7 +7,7 @@ try {
     $db = new Conexion_db();
     $conn = $db->conectar();
 
-    $stmt = $conn->query("SELECT DATABASE() AS db");
+    $stmt = $conn->query("SHOW TABLES");
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
