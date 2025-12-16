@@ -12,7 +12,7 @@ try {
 
     echo json_encode([
         "success" => true,
-        "data" => $data
+        "categorias" => [$data]
     ]);
 } catch (PDOException $e) {
     http_response_code(500);
