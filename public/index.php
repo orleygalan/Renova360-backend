@@ -21,5 +21,3 @@ $conn = $db->conectar();
 //     "error" => $e->getMessage()
 // ]);
 // }
-
-?>
