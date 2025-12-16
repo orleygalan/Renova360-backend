@@ -25,7 +25,7 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 # Exponer puerto Railway
-EXPOSE 8080
+# EXPOSE 8080
 
 # Arrancar servidor PHP
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+CMD php -S 0.0.0.0:$PORT -t public
