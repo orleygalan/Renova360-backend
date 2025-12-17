@@ -84,7 +84,7 @@ class Servicio_molde
 
             //  Comentarios de los clientes
             $comentariosQuery = 'SELECT cs.comentario_ID, cs.usuario_ID, u.nombre, u.apellido, cs.comentario
-                                 FROM comentarioS_servicios AS cs
+                                 FROM comentarios_servicios AS cs
                                  LEFT JOIN usuarios AS u ON cs.usuario_ID = u.usuario_ID
                                  WHERE cs.servicio_ID = :servicio_ID';
             $stmtComentarios = $this->conn->prepare($comentariosQuery);
