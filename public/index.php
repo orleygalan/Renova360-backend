@@ -1,46 +1,28 @@
 <?php
 require '../cros.php';
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/../config/conexion_db.php';
 
-try {
-    $db = new Conexion_db();
-    $conn = $db->conectar();
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-    $stmt = $conn->query("SHOW TABLES");
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Limpia la URL
+$uri = rtrim($uri, '/');
 
-    echo json_encode([
-        "success" => true,
-        "data" => $data
-    ]);
-} catch (PDOException $e) {
-    http_response_code(500);
+$routes = [
+    '/nichos'     => '../api/nichos_api.php',
+    '/productos'  => '../api/productos_api.php',
+    '/servicios'  => '../api/servicios_api.php',
+    '/usuarios'   => '../api/usuarios_api.php',
+    '/pedido'     => '../api/pedido_compra_api.php',
+];
+
+// Ruta no encontrada
+if (!isset($routes[$uri])) {
+    http_response_code(404);
     echo json_encode([
         "success" => false,
-        "error" => $e->getMessage()
+        "error" => "Endpoint no encontrado"
     ]);
+    exit;
 }
 
-// require '../cros.php';
-// require_once __DIR__ . '/../bootstrap.php';
-// require_once __DIR__ . '/../config/conexion_db.php';
-
-// try {
-//     $db = new Conexion_db();
-//     $conn = $db->conectar();
-
-//     $stmt = $conn->query("SELECT DATABASE() AS db");
-//     $data = $stmt->fetch();
-
-//     echo json_encode([
-//         "success" => true,
-//         "data" => [$data]
-//     ]);
-// } catch (PDOException $e) {
-//     http_response_code(500);
-//     echo json_encode([
-//         "success" => false,
-//         "error" => $e->getMessage()
-//     ]);
-// }
+// Redirige internamente (SIN cambiar la URL)
+require $routes[$uri];
