@@ -19,29 +19,52 @@ class Usuario_controlador
         $token = bin2hex(random_bytes(32));
         $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
 
-        if ($this->usuario_model->crear_usuario($nombre, $apellido, $correo, $contrasena, $token)) {
-            $this->enviar_correo_verificacion($correo, $token);
-            echo json_encode([
-                'status' => 'success',
-                'message' => 'Registro exitoso. Revisa tu correo para confirmar tu cuenta.'
-            ]);
-        } else {
+   
+        $creado = $this->usuario_model->crear_usuario(
+            $nombre,
+            $apellido,
+            $correo,
+            $contrasena,
+            $token
+        );
+
+        if (!$creado) {
             echo json_encode([
                 'status' => 'error',
                 'message' => 'Error al registrar el usuario.'
             ]);
+            return;
         }
+
+      
+        $correoEnviado = $this->enviar_correo_verificacion($correo, $token);
+
+        if (!$correoEnviado) {
+            echo json_encode([
+                'status' => 'warning',
+                'message' => 'Usuario creado, pero no se pudo enviar el correo de verificación.'
+            ]);
+            return;
+        }
+
+        
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Registro exitoso. Revisa tu correo para confirmar tu cuenta.'
+        ]);
     }
+
 
     public function enviar_correo_verificacion($correo, $token)
     {
         $mail = new PHPMailer(true);
+
         try {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'orleigalan@gmail.com';
-            $mail->Password = 'gvfd iack qaxy vytm';
+            $mail->Password = 'gvfd iack qaxy vytm'; // ⚠️ luego pásalo a .env
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
@@ -50,19 +73,22 @@ class Usuario_controlador
 
             $mail->isHTML(true);
             $mail->Subject = 'Confirma tu registro';
-            $mail->Body = 'Haz clic aquí para confirmar tu cuenta: 
-                      <a href="http://localhost/renova360/api/usuarios_api.php?token=' . $token . '">Confirmar</a>';
+            $mail->Body = '
+            <h3>Confirma tu cuenta</h3>
+            <a href="https://renova360-backend-production.up.railway.app/usuarios?token=' . $token . '">
+                Confirmar cuenta
+            </a>
+        ';
 
             $mail->send();
-            // echo json_encode([
-            //     'status'=> 'success',
-            //     'message'=> 'Correo enviado correctamente'
-            // ]);
-        } catch (Exception $e) {
-            echo "Error al enviar el correo: {$mail->ErrorInfo}";
-        }
+            return true;
 
+        } catch (Exception $e) {
+            error_log("Error SMTP: " . $mail->ErrorInfo);
+            return false;
+        }
     }
+
 
     public function confirmar($token)
     {
