@@ -17,7 +17,25 @@ switch ($method) {
         if (isset($action)) {
             switch ($action) {
                 case 'registrar':
-                    $usuario_controlador->registrar($data['nombre'], $data['apellido'], $data['correo'], $data['contrasena']);
+                    if (
+                        empty($data['nombre']) ||
+                        empty($data['apellido']) ||
+                        empty($data['correo']) ||
+                        empty($data['contrasena'])
+                    ) {
+                        echo json_encode([
+                            "status" => "error",
+                            "message" => "Todos los campos son obligatorios"
+                        ]);
+                        exit;
+                    }
+
+                    $usuario_controlador->registrar(
+                        $data['nombre'],
+                        $data['apellido'],
+                        $data['correo'],
+                        $data['contrasena']
+                    );
                     break;
                 case 'iniciar_sesion':
                     $usuario_controlador->gestor_inicio_sesion($data['correo'], $data['contrasena']);
