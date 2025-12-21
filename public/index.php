@@ -24,5 +24,5 @@ if (!isset($routes[$uri])) {
     exit;
 }
 
-// Redirige internamente (SIN cambiar la URL)
+// Redirige internamente
 require $routes[$uri];

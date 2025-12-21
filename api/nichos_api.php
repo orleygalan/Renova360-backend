@@ -21,7 +21,7 @@ switch ($method) {
 
             if ($data && $imagen) {
 
-                require_once '../services/S3Service.php';
+                require_once __DIR__ . '/../services/S3Service.php';
                 $s3 = new S3Service();
                 $url_imagen = $s3->uploadImage($imagen);
 
