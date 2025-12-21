@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 
-class S3Service {
+class s3service {
 
     private $s3;
     private $bucket;

@@ -22,7 +22,7 @@ switch ($method) {
             if ($data && $imagen) {
 
                 require_once __DIR__ . '/../services/s3service.php';
-                $s3 = new S3Service();
+                $s3 = new s3service();
                 $url_imagen = $s3->uploadImage($imagen);
 
                 $nicho_controlador->crear_nicho_controlador(
