@@ -19,6 +19,10 @@ switch ($method) {
             $data = json_decode($_POST['data'], true);
             $imagen = $_FILES['imagen'] ?? null;
 
+            var_dump(file_exists(__DIR__ . '/../services/s3service.php'));
+            exit;
+
+
             if ($data && $imagen) {
 
                 require_once __DIR__ . '/../services/s3service.php';
