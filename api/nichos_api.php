@@ -2,7 +2,7 @@
 require '../cros.php';
 require '../controllers/nicho_controlador.php';
 // require '../api/nichos_api.php';
-require '../services/s3service.php';
+require_once __DIR__ . '/../services/s3service.php';
 
 $nicho_controlador = new Nicho_controlador();
 $method = $_SERVER['REQUEST_METHOD'];
