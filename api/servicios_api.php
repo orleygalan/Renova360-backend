@@ -16,7 +16,7 @@ switch ($method) {
 
             if ($data && isset($_FILES['imagen'])) { 
 
-                require_once '../services/S3Service.php';
+                require_once '../services/s3service.php';
                 $s3 = new S3Service();
 
                 $imagen = $_FILES['imagen'];
