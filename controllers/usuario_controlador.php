@@ -61,14 +61,14 @@ class Usuario_controlador
 
         try {
             $mail->isSMTP();
-            $mail->Host = $_ENV['SMTP_HOST'];
+            $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = $_ENV['SMTP_USER'];
-            $mail->Password = $_ENV['SMTP_PASS'];
+            $mail->Username = 'orleigalan@gmail.com';
+            $mail->Password = 'gvfd iack qaxy vytm';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = $_ENV['SMTP_PORT'];
+            $mail->Port = '587';
 
-            $mail->setFrom($_ENV['SMTP_FROM'], 'Renova360');
+            $mail->setFrom('orleigalan@gmail.com', 'Renova360');
             $mail->addAddress($correo);
 
             $mail->isHTML(true);
