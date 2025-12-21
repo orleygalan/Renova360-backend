@@ -64,7 +64,7 @@ class Usuario_controlador
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'orleigalan@gmail.com';
-            $mail->Password = 'gvfd iack qaxy vytm'; // ⚠️ luego pásalo a .env
+            $mail->Password = 'gvfd iack qaxy vytm'; 
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 

@@ -234,6 +234,7 @@ class Producto_molde
                 $comQuery = "SELECT 
                                 c.comentario_ID,
                                 c.comentario,
+                                c.estrellas,
                                 u.nombre AS usuario
                              FROM comentarios_productos c
                              JOIN usuarios u ON c.usuario_ID = u.usuario_ID
