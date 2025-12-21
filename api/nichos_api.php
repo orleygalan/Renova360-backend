@@ -2,7 +2,6 @@
 require '../cros.php';
 require '../controllers/nicho_controlador.php';
 // require '../api/nichos_api.php';
-require_once __DIR__ . '/../services/s3service.php';
 
 $nicho_controlador = new Nicho_controlador();
 $method = $_SERVER['REQUEST_METHOD'];
@@ -22,6 +21,7 @@ switch ($method) {
 
             if ($data && $imagen) {
 
+                require_once __DIR__ . '/../services/s3service.php';
                 $s3 = new S3Service();
                 $url_imagen = $s3->uploadImage($imagen);
 
