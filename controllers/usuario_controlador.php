@@ -87,7 +87,12 @@ class Usuario_controlador
 
         } catch (Exception $e) {
             error_log('MAIL ERROR: ' . $mail->ErrorInfo);
-            return false;
+            echo json_encode([
+                'status' => 'error',
+                'smtp_error' => $mail->ErrorInfo
+            ]);
+            exit;
+            // return false;
         }
     }
 
