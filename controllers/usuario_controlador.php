@@ -61,14 +61,14 @@ class Usuario_controlador
 
         try {
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = $_ENV['SMTP_HOST'];
             $mail->SMTPAuth = true;
-            $mail->Username = 'orleigalan@gmail.com';
-            $mail->Password = 'gvfd iack qaxy vytm';
+            $mail->Username = $_ENV['SMTP_USER'];
+            $mail->Password = $_ENV['SMTP_PASS'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = '587';
+            $mail->Port = $_ENV['SMTP_PORT'];
 
-            $mail->setFrom('orleigalan@gmail.com', 'Renova360');
+            $mail->setFrom($_ENV['SMTP_FROM'], 'Renova360');
             $mail->addAddress($correo);
 
             $mail->isHTML(true);
@@ -86,7 +86,7 @@ class Usuario_controlador
             return true;
 
         } catch (Exception $e) {
-            error_log('Error SMTP: ' . $mail->ErrorInfo);
+            error_log('MAIL ERROR: ' . $mail->ErrorInfo);
             return false;
         }
     }
