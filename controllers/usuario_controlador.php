@@ -19,7 +19,7 @@ class Usuario_controlador
         $token = bin2hex(random_bytes(32));
         $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
 
-   
+
         $creado = $this->usuario_model->crear_usuario(
             $nombre,
             $apellido,
@@ -36,7 +36,7 @@ class Usuario_controlador
             return;
         }
 
-      
+
         $correoEnviado = $this->enviar_correo_verificacion($correo, $token);
 
         if (!$correoEnviado) {
@@ -47,7 +47,7 @@ class Usuario_controlador
             return;
         }
 
-        
+
         echo json_encode([
             'status' => 'success',
             'message' => 'Registro exitoso. Revisa tu correo para confirmar tu cuenta.'
@@ -61,33 +61,36 @@ class Usuario_controlador
 
         try {
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = $_ENV['SMTP_HOST'];
             $mail->SMTPAuth = true;
-            $mail->Username = 'orleigalan@gmail.com';
-            $mail->Password = 'gvfd iack qaxy vytm'; 
+            $mail->Username = $_ENV['SMTP_USER'];
+            $mail->Password = $_ENV['SMTP_PASS'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+            $mail->Port = $_ENV['SMTP_PORT'];
 
-            $mail->setFrom('orleigalan@gmail.com', 'Renova360');
+            $mail->setFrom($_ENV['SMTP_FROM'], 'Renova360');
             $mail->addAddress($correo);
 
             $mail->isHTML(true);
             $mail->Subject = 'Confirma tu registro';
-            $mail->Body = '
+            $mail->Body = "
             <h3>Confirma tu cuenta</h3>
-            <a href="https://renova360-backend-production.up.railway.app/usuarios?token=' . $token . '">
-                Confirmar cuenta
+            <p>Haz clic en el botón para activar tu cuenta:</p>
+            <a href='https://renova360-backend-production.up.railway.app/usuarios?token=$token'
+               style='padding:10px 15px;background:#2563eb;color:#fff;text-decoration:none;border-radius:5px'>
+               Confirmar cuenta
             </a>
-        ';
+        ";
 
             $mail->send();
             return true;
 
         } catch (Exception $e) {
-            error_log("Error SMTP: " . $mail->ErrorInfo);
+            error_log('Error SMTP: ' . $mail->ErrorInfo);
             return false;
         }
     }
+
 
 
     public function confirmar($token)
