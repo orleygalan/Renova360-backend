@@ -66,7 +66,7 @@ class Usuario_controlador
             $mail->Username = $_ENV['SMTP_USER'];
             $mail->Password = $_ENV['SMTP_PASS'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $mail->Port = '465';
+            $mail->Port = $_ENV['SMTP_PORT'];
 
             $mail->setFrom($_ENV['SMTP_FROM'], 'Renova360');
             $mail->addAddress($correo);
@@ -91,8 +91,7 @@ class Usuario_controlador
                 'status' => 'error',
                 'smtp_error' => $mail->ErrorInfo
             ]);
-            exit;
-            // return false;
+            return false;
         }
     }
 
