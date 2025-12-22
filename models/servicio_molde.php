@@ -63,7 +63,7 @@ class Servicio_molde
 
     public function obtener_servicios()
     {
-        $query = 'SELECT s.servicio_ID, s.descripcion_nombre, s.video_principal, s.categoria_ID, c.nombre AS categoria_nombre
+        $query = 'SELECT s.servicio_ID, s.descripcion_nombre, s.video_principal, s.categoria_ID, s.nombre_empresa, c.nombre AS categoria_nombre
                   FROM servicios AS s
                   LEFT JOIN categorias c ON s.categoria_ID = c.categoria_ID';
 
