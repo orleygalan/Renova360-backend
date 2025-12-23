@@ -73,7 +73,12 @@ class Usuario_molde
         $stmt->bindParam(':token', $token);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // eliminamos la contraseña antes de enviar el json al frontend 
+        unset($usuario['contrasena']);
+        return $usuario;
+
     }
 
 
