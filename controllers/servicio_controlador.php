@@ -17,7 +17,7 @@ class Servicio_controlador
         
         $url_imagen = is_array($url_imagen) ? $url_imagen[0] : $url_imagen;
 
-        $resultado = $this->servicio_molde->crear_servicio($descripcion_nombre,$nombre_empresa, $url_imagen, $categoria_ID);
+        $resultado = $this->servicio_molde->crear_servicio($descripcion_nombre, $url_imagen, $categoria_ID, $nombre_empresa);
 
         if ($resultado) {
             echo json_encode([

@@ -32,7 +32,7 @@ switch ($method) {
                     $data['descripcion_nombre'],
                     $url_imagen,
                     $data['categoria_ID'],
-                    $nombre_empresa = $data['nombre_empresa']
+                     $data['nombre_empresa']
                 );
 
             } else {
