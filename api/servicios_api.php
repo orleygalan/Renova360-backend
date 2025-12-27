@@ -14,7 +14,7 @@ switch ($method) {
 
             $data = json_decode($_POST['dataService'], true);
 
-            if ($data && isset($_FILES['imagen'])) { 
+            if ($data && isset($_FILES['imagen'])) {
 
                 require_once '../services/s3service.php';
                 $s3 = new S3Service();
@@ -22,7 +22,7 @@ switch ($method) {
                 $imagen = $_FILES['imagen'];
 
                 if (!empty($imagen['tmp_name'])) {
-                    
+
                     $url_imagen = $s3->uploadImage($imagen);
                 } else {
                     $url_imagen = null;
@@ -31,7 +31,8 @@ switch ($method) {
                 $servicio_controlador->crear_servicio_controlador(
                     $data['descripcion_nombre'],
                     $url_imagen,
-                    $data['categoria_ID']
+                    $data['categoria_ID'],
+                    $nombre_empresa = $data['nombre_empresa']
                 );
 
             } else {

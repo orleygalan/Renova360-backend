@@ -12,14 +12,14 @@ class Servicio_molde
         $this->conn = $db->conectar();
     }
 
-    public function crear_servicio($descripcion_nombre, $url_imagen, $categoria_ID)
+    public function crear_servicio($descripcion_nombre, $url_imagen, $categoria_ID, $nombre_empresa)
     {
         $this->conn->beginTransaction();
 
         try {
             // insertar el servicio principal
-            $query = 'INSERT INTO servicios (descripcion_nombre, video_principal, categoria_ID)
-                      VALUES (:descripcion_nombre, :video_principal, :categoria_ID)';
+            $query = 'INSERT INTO servicios (descripcion_nombre, video_principal, categoria_ID, nombre_empresa)
+                      VALUES (:descripcion_nombre, :video_principal, :categoria_ID, :nombre_empresa)';
 
             // $imagenes_json = json_encode($url_imagen, JSON_UNESCAPED_SLASHES);
 
@@ -27,7 +27,8 @@ class Servicio_molde
             $stmt->execute([
                 ':descripcion_nombre' => $descripcion_nombre,
                 ':video_principal' => $url_imagen,
-                ':categoria_ID' => $categoria_ID
+                ':categoria_ID' => $categoria_ID,
+                ':nombre_empresa' => $nombre_empresa
             ]);
 
             // obtener el ID del nuevo servicio
