@@ -66,7 +66,6 @@ class Conexion_db
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ]
         );
-
         return $pdo; 
     } catch (PDOException $e) {
         throw $e;
